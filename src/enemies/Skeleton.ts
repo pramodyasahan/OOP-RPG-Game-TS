@@ -21,11 +21,11 @@ export class Skeleton extends Enemy {
     }
 
     constructor(level: number) {
-        super(level);
+        super(level, "Skeleton");
     }
 
     attack(target: Entity): void {
-        if (!this.isDefeat) {
+        if (!this.isDefeated) {
             target.takeDamage(12);
         } else {
             console.log("Skeleton is defeated...🏅")
@@ -36,7 +36,7 @@ export class Skeleton extends Enemy {
         this.health -= amount;
         if (this.health <= 0) {
             this.health = 0;
-            this.isDefeat = true;
+            this.isDefeated = true;
         }
     }
 

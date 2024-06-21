@@ -3,10 +3,12 @@ import {Entity} from "./Entity"
 export abstract class Enemy implements Entity {
     health: number;
     level: number;
-    isDefeat: boolean;
+    name: string;
+    isDefeated: boolean;
 
-    protected constructor(level: number) {
-        this.isDefeat = false;
+    protected constructor(level: number, name: string) {
+        this.isDefeated = false;
+        this.name = name
         this.health = this.calculateHealth(level);
         this.level = level;
     }
@@ -18,4 +20,6 @@ export abstract class Enemy implements Entity {
     abstract takeDamage(amount: number): void;
 
     abstract getHealth(): number;
+
+
 }

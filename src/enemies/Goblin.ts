@@ -21,11 +21,11 @@ export class Goblin extends Enemy {
     }
 
     constructor(level: number) {
-        super(level);
+        super(level, "Goblin");
     }
 
     attack(target: Entity): void {
-        if (!this.isDefeat) {
+        if (!this.isDefeated) {
             target.takeDamage(10);
         } else {
             console.log("Goblin is defeated...🏅")
@@ -36,7 +36,7 @@ export class Goblin extends Enemy {
         this.health -= amount;
         if (this.health <= 0) {
             this.health = 0;
-            this.isDefeat = true;
+            this.isDefeated = true;
         }
     }
 

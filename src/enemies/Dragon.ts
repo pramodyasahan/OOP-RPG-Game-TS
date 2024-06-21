@@ -7,7 +7,7 @@ export class Dragon extends Enemy {
     private fireBreathChance: number;
 
     constructor(level: number) {
-        super(level);
+        super(level, "Dragon");
         this.fireBreathChance = 0.2;
         this.fireBreath = 35;
     }
@@ -41,7 +41,7 @@ export class Dragon extends Enemy {
 
 
     attack(target: Entity): void {
-        if (!this.isDefeat) {
+        if (!this.isDefeated) {
             if (Math.random() < this.fireBreathChance) {
                 target.takeDamage(this.fireBreath)
             } else {
@@ -56,7 +56,7 @@ export class Dragon extends Enemy {
         this.health -= amount;
         if (this.health <= 0) {
             this.health = 0;
-            this.isDefeat = true;
+            this.isDefeated = true;
         }
     }
 

@@ -7,7 +7,7 @@ export class Warlock extends Enemy {
     private darkBoltChance: number;
 
     constructor(level: number) {
-        super(level);
+        super(level, "Warlock");
         this.darkBoltChance = 0.1;
         this.darkBolt = 30;
     }
@@ -40,7 +40,7 @@ export class Warlock extends Enemy {
     }
 
     attack(target: Entity): void {
-        if (!this.isDefeat) {
+        if (!this.isDefeated) {
             target.takeDamage(20);
         } else {
             console.log("Warlock is defeated...🏅")
@@ -51,7 +51,7 @@ export class Warlock extends Enemy {
         this.health -= amount;
         if (this.health <= 0) {
             this.health = 0;
-            this.isDefeat = true;
+            this.isDefeated = true;
         }
     }
 
