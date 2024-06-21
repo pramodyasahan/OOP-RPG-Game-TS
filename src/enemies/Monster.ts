@@ -1,5 +1,5 @@
 import {Enemy} from "../entities/Enemy"
-import {Entity} from "../entities/Entity"
+import {Player} from "../entities/Player"
 
 
 export class Monster extends Enemy {
@@ -25,7 +25,7 @@ export class Monster extends Enemy {
         super(level, "Monster");
     }
 
-    attack(target: Entity): void {
+    attack(target: Player): void {
         if (!this.isDefeated) {
             target.takeDamage(15);
         } else {

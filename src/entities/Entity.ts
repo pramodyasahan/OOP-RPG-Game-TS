@@ -6,4 +6,5 @@ export interface Entity {
     attack(target: Entity): void;
     takeDamage(amount: number): void;
     getHealth(): number;
+    getRandomInt(min: number, max: number): number;
 }

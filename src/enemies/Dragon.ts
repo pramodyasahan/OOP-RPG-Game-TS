@@ -1,5 +1,5 @@
 import {Enemy} from "../entities/Enemy"
-import {Entity} from "../entities/Entity"
+import {Player} from "../entities/Player"
 
 
 export class Dragon extends Enemy {
@@ -40,7 +40,7 @@ export class Dragon extends Enemy {
     }
 
 
-    attack(target: Entity): void {
+    attack(target: Player): void {
         if (!this.isDefeated) {
             if (Math.random() < this.fireBreathChance) {
                 target.takeDamage(this.fireBreath)

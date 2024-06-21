@@ -1,33 +1,33 @@
-import {Entity} from "../entities/Entity"
+import {Enemy} from "../entities/Enemy"
 import {Player} from "../entities/Player"
 
 export class Archer extends Player {
     private criticalHitChance: number;
 
-    constructor(name: string) {
-        super(80, name);
+    constructor() {
+        super(80, "Archer");
         this.criticalHitChance = 0.1;
     }
 
-    attack(target: Entity): void {
+    attack(target: Enemy): void {
         if (!this.isDefeated) {
             const isCriticalHit: boolean = Math.random() < this.criticalHitChance;
+            let damageDone: number;
+
             if (isCriticalHit) {
-                target.takeDamage(24);
-                this.damageDeal += 24;
-                console.log(`Critical hit!💥 damage dealt 24}`);
+                damageDone = target.type === "Skeleton" ? this.getRandomInt(25, 30) : this.getRandomInt(20, 24);
+                console.log(`Critical hit!💥 damage dealt ${damageDone}`);
             } else {
-                target.takeDamage(12);
-                this.damageDeal += 12;
+                damageDone = target.type === "Skeleton" ? 18 : 12;
             }
+
+            target.takeDamage(damageDone);
+            this.damageDeal += damageDone;
 
             if (this.damageDeal % 10 === 0) {
                 console.log(`${this.name} level up to: ${this.level} ⬆ `);
                 super.levelUp();
-                this.criticalHitChance += 0.05;
-                if (this.criticalHitChance > 0.5) {
-                    this.criticalHitChance = 0.5;
-                }
+                this.criticalHitChance = Math.min(this.criticalHitChance + 0.05, 0.5);
             }
         }
     }
@@ -46,7 +46,7 @@ export class Archer extends Player {
                 console.log(`${this.name} is defeated☠️`);
             }
         } else {
-            console.log(`${this.name} has been defeated!!!`)
+            console.log(`${this.name} has already been defeated!!!`);
         }
     }
 

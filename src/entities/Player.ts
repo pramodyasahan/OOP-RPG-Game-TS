@@ -32,13 +32,17 @@ export abstract class Player implements Entity {
         this.level += 1;
     }
 
+    public getRandomInt(min: number, max: number): number {
+        return (Math.floor(Math.random() * (max - min + 1)) + min)
+    }
+
     private initializeInventory(): void {
         this.inventory.addItem({name: 'apple', healthGain: 10});
         this.inventory.addItem({name: 'health potion', healthGain: 50});
         this.inventory.addItem({name: 'meat', healthGain: 25});
     }
 
-    eat(foodName: string): void {
+    public eat(foodName: string): void {
         const food: Food | undefined = this.inventory.getFoodByName(foodName.toLowerCase());
         if (food) {
             if (this.maxHealth >= (this.health + food.healthGain)) {

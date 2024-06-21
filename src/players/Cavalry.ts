@@ -1,41 +1,63 @@
-import {Entity} from "../entities/Entity"
+import {Enemy} from "../entities/Enemy"
 import {Player} from "../entities/Player"
 
 export class Cavalry extends Player {
     private chargeAttackBonus: number;
     private chargeAttackChance: number;
 
-    constructor(name: string) {
-        super(110, name);
+    constructor() {
+        super(110, "Cavalry");
         this.chargeAttackBonus = 20;
         this.chargeAttackChance = 0.1;
     }
 
-    attack(target: Entity): void {
+    attack(target: Enemy): void {
         if (!this.isDefeated) {
-            const isChargeAttack: boolean = Math.random() < this.chargeAttackChance;
+            const isChargeAttack: boolean = target.getRandomInt(0, 1) < this.chargeAttackChance;
+            let damageDone: number;
+
             if (isChargeAttack) {
-                target.takeDamage(this.chargeAttackBonus);
-                this.damageDeal += this.chargeAttackBonus;
-                console.log("Charge Attack!💥");
+                switch (target.type) {
+                    case "Goblin":
+                        damageDone = this.chargeAttackBonus + 10;
+                        break;
+                    case "Dragon":
+                        damageDone = this.chargeAttackBonus + 15;
+                        break;
+                    default:
+                        damageDone = this.chargeAttackBonus;
+                        break;
+                }
+                console.log(`Charge Attack!💥 damage done ${damageDone}`);
             } else {
-                target.takeDamage(10);
-                this.damageDeal += 10;
+                switch (target.type) {
+                    case "Goblin":
+                        damageDone = 15;
+                        break;
+                    case "Dragon":
+                        damageDone = 20;
+                        break;
+                    default:
+                        damageDone = 10;
+                        break;
+                }
+                console.log(`Damage done ${damageDone}`);
             }
+
+            target.takeDamage(damageDone);
+            this.damageDeal += damageDone;
 
             if (this.damageDeal % 10 === 0) {
                 console.log(`${this.name} level up to: ${this.level} ⬆ `);
                 super.levelUp();
-                this.chargeAttackChance += 0.02;
-                if (this.chargeAttackChance > 0.5) {
-                    this.chargeAttackChance = 0.5;
-                }
+                this.chargeAttackChance = Math.min(this.chargeAttackChance + 0.02, 0.5);
             }
 
             if (this.level % 5 === 0) {
                 this.chargeAttackBonus += 5;
             }
         }
+
     }
 
     takeDamage(amount: number): void {
@@ -47,7 +69,7 @@ export class Cavalry extends Player {
                 console.log(`${this.name} is defeated☠️`);
             }
         } else {
-            console.log(`${this.name} has been defeated!!!`)
+            console.log(`${this.name} already has been defeated!!!`)
         }
 
     }

@@ -32,7 +32,7 @@ class GameSession {
     }
 
     start(): void {
-        console.log(`Starting game with ${this.player.name} vs ${this.enemy.name}`);
+        console.log(`Starting game with ${this.player.name} vs ${this.enemy.type}`);
         while (!this.player.isDefeated && !this.enemy.isDefeated) {
             this.playerTurn();
             if (!this.enemy.isDefeated) {
@@ -43,22 +43,22 @@ class GameSession {
     }
 
     private playerTurn(): void {
-        console.log(`Player's turn: ${this.player.name} attacks ${this.enemy.name}`);
+        console.log(`Player's turn: ${this.player.name} attacks ${this.enemy.type}`);
         this.player.attack(this.enemy);
         this.enemy.getHealth();
     }
 
     private enemyTurn(): void {
-        console.log(`Enemy's turn: ${this.enemy.name} attacks ${this.player.name}`);
+        console.log(`Enemy's turn: ${this.enemy.type} attacks ${this.player.name}`);
         this.enemy.attack(this.player);
         this.player.getHealth();
     }
 
     private endGame(): void {
         if (this.player.isDefeated) {
-            console.log(`${this.player.name} has been defeated. ${this.enemy.name} wins!`);
+            console.log(`${this.player.name} has been defeated. ${this.enemy.type} wins!`);
         } else {
-            console.log(`${this.enemy.name} has been defeated. ${this.player.name} wins!`);
+            console.log(`${this.enemy.type} has been defeated. ${this.player.name} wins!`);
         }
         // Reset the instance after the game ends
         GameSession.instance = null;
@@ -66,8 +66,8 @@ class GameSession {
 }
 
 // Example usage
-const player = new Archer('Player1'); // You can choose any player class: Archer, Cavalry, Infantry, Mage
-const enemy = new Goblin(3); // You can choose any enemy class: Dragon, Goblin, Monster, Skeleton, Warlock
+const player = new Archer(); // You can choose any player class: Archer, Cavalry, Infantry, Mage
+const enemy = new Skeleton(5); // You can choose any enemy class: Dragon, Goblin, Monster, Skeleton, Warlock
 
 const gameSession = GameSession.getInstance(player, enemy);
 gameSession.start();

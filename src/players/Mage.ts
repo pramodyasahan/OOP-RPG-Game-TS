@@ -1,4 +1,4 @@
-import {Entity} from "../entities/Entity"
+import {Enemy} from "../entities/Enemy"
 import {Player} from "../entities/Player"
 
 export class Mage extends Player {
@@ -11,26 +11,39 @@ export class Mage extends Player {
         this.mana = this.manaStorage;
     }
 
-    attack(target: Entity): void {
+    attack(target: Enemy): void {
         if (!this.isDefeated) {
-            if (this.mana >= 40) {
-                target.takeDamage(20);
-                this.damageDeal += 20;
-                this.mana -= 20;
+            let damageDone: number;
+
+            if (target.type === "Warlock") {
+                if (this.mana >= 40) {
+                    damageDone = 35;
+                    this.mana -= 35;
+                } else {
+                    damageDone = 20;
+                }
             } else {
-                target.takeDamage(10);
-                this.damageDeal += 10;
+                if (this.mana >= 40) {
+                    damageDone = 20;
+                    this.mana -= 20;
+                } else {
+                    damageDone = 10;
+                }
             }
+
+            target.takeDamage(damageDone);
+            this.damageDeal += damageDone;
 
             if (this.damageDeal % 10 === 0) {
                 console.log(`${this.name} level up to: ${this.level} ⬆ `);
-                super.levelUp()
+                super.levelUp();
                 this.manaStorage += 5;
-                if (this.manaStorage === 200) {
+                if (this.manaStorage > 200) {
                     this.manaStorage = 200;
                 }
             }
         }
+
     }
 
     takeDamage(amount: number): void {
