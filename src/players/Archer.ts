@@ -25,15 +25,16 @@ export class Archer extends Player {
             this.damageDeal += damageDone;
 
             if (this.damageDeal % 10 === 0) {
-                console.log(`${this.name} level up to: ${this.level} ⬆ `);
+                console.log(`${this.type} level up to: ${this.level} ⬆ `);
                 super.levelUp();
+                this.maxHealth += 10;
                 this.criticalHitChance = Math.min(this.criticalHitChance + 0.05, 0.5);
             }
         }
     }
 
     getCriticalHitChance(): number {
-        console.log(`${this.name} has ${this.criticalHitChance} critical hit chance`)
+        console.log(`${this.type} has ${this.criticalHitChance} critical hit chance`)
         return this.criticalHitChance;
     }
 
@@ -43,19 +44,19 @@ export class Archer extends Player {
             if (this.health <= 0) {
                 this.health = 0;
                 this.isDefeated = true;
-                console.log(`${this.name} is defeated☠️`);
+                console.log(`${this.type} is defeated☠️`);
             }
         } else {
-            console.log(`${this.name} has already been defeated!!!`);
+            console.log(`${this.type} has already been defeated!!!`);
         }
     }
 
     getHealth(): number {
         if (!this.isDefeated) {
-            console.log(`${this.name} has ${this.health} health left`)
+            console.log(`${this.type} has ${this.health} health left`)
             return this.health
         } else {
-            console.log(`${this.name} has been defeated!!!`)
+            console.log(`${this.type} has been defeated!!!`)
             return 0;
         }
     }

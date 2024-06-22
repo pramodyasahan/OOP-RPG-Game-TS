@@ -5,8 +5,8 @@ export class Mage extends Player {
     private mana: number;
     private manaStorage: number;
 
-    constructor(name: string,) {
-        super(90, name);
+    constructor() {
+        super(90, "Mage");
         this.manaStorage = 100;
         this.mana = this.manaStorage;
     }
@@ -35,8 +35,9 @@ export class Mage extends Player {
             this.damageDeal += damageDone;
 
             if (this.damageDeal % 10 === 0) {
-                console.log(`${this.name} level up to: ${this.level} ⬆ `);
+                console.log(`${this.type} level up to: ${this.level} ⬆ `);
                 super.levelUp();
+                this.maxHealth += 10;
                 this.manaStorage += 5;
                 if (this.manaStorage > 200) {
                     this.manaStorage = 200;
@@ -52,10 +53,10 @@ export class Mage extends Player {
             if (this.health <= 0) {
                 this.health = 0;
                 this.isDefeated = true;
-                console.log(`${this.name} is defeated☠️`);
+                console.log(`${this.type} is defeated☠️`);
             }
         } else {
-            console.log(`${this.name} has been defeated!!!`)
+            console.log(`${this.type} has been defeated!!!`)
         }
     }
 
@@ -67,21 +68,21 @@ export class Mage extends Player {
     }
 
     getMana(): number {
-        console.log(`${this.name} has ${this.mana} mana left`)
+        console.log(`${this.type} has ${this.mana} mana left`)
         return this.mana;
     }
 
     getManaStorage(): number {
-        console.log(`${this.name} has ${this.manaStorage} of mana storage`)
+        console.log(`${this.type} has ${this.manaStorage} of mana storage`)
         return this.manaStorage;
     }
 
     getHealth(): number {
         if (!this.isDefeated) {
-            console.log(`${this.name} has ${this.health} health left`)
+            console.log(`${this.type} has ${this.health} health left`)
             return this.health
         } else {
-            console.log(`${this.name} has been defeated!!!`)
+            console.log(`${this.type} has been defeated!!!`)
             return 0;
         }
     }

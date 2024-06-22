@@ -1,24 +1,25 @@
-import {Entity} from "./Entity"
+import {Entity} from "../game/interfaces/Entity"
 import {Food} from "../inventory/types"
 import {Inventory} from "../inventory/Inventory"
 
+
 export abstract class Player implements Entity {
-    isDefeated: boolean
+    isDefeated: boolean;
     health: number;
     maxHealth: number;
     level: number;
-    name: string;
-    damageDeal: number
+    damageDeal: number;
     inventory: Inventory;
+    type: string;
 
-    protected constructor(maxHealth: number, name: string) {
-        this.maxHealth = maxHealth
+    protected constructor(maxHealth: number, type: string) {
+        this.maxHealth = maxHealth;
         this.health = maxHealth;
         this.level = 1;
         this.damageDeal = 0;
-        this.name = name;
         this.isDefeated = false;
         this.inventory = new Inventory();
+        this.type = type;
         this.initializeInventory();
     }
 
@@ -48,16 +49,19 @@ export abstract class Player implements Entity {
             if (this.maxHealth >= (this.health + food.healthGain)) {
                 this.health += food.healthGain;
                 this.inventory.removeItem(food);
-                console.log(`${this.name} ate ${food.name} and gained ${food.healthGain} health.`);
+                console.log(`${this.type} ate ${food.name} and gained ${food.healthGain} health.`);
             } else {
                 this.health = this.maxHealth;
                 this.inventory.removeItem(food);
-                console.log(`${this.name} ate ${food.name} and gained ${this.maxHealth - this.health} health.`);
+                console.log(`${this.type} ate ${food.name} and gained ${this.maxHealth - this.health} health.`);
             }
         } else {
-            console.log(`${this.name} does not have ${foodName} in the inventory.`);
+            console.log(`${this.type} does not have ${foodName} in the inventory.`);
         }
+    }
+
+    resetHealth() {
+        this.health = this.maxHealth
     }
 }
 
-export {Entity};

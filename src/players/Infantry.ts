@@ -4,8 +4,8 @@ import {Player} from "../entities/Player"
 export class Infantry extends Player {
     private shield: number;
 
-    constructor(name: string) {
-        super(120, name);
+    constructor() {
+        super(120, "Infantry");
         this.shield = 50; // Initial shield value
     }
 
@@ -22,8 +22,9 @@ export class Infantry extends Player {
         }
 
         if (this.damageDeal % 10 === 0) {
-            console.log(`${this.name} level up to: ${this.level} ⬆ `);
+            console.log(`${this.type} level up to: ${this.level} ⬆ `);
             super.levelUp();
+            this.maxHealth += 10;
             this.shield += 5;
             if (this.shield > 200) {
                 this.shield = 200;
@@ -47,10 +48,10 @@ export class Infantry extends Player {
             if (this.health <= 0) {
                 this.health = 0;
                 this.isDefeated = true;
-                console.log(`${this.name} is defeated☠️`);
+                console.log(`${this.type} is defeated☠️`);
             }
         } else {
-            console.log(`${this.name} has been defeated!!!`)
+            console.log(`${this.type} has been defeated!!!`)
         }
 
     }
@@ -59,25 +60,25 @@ export class Infantry extends Player {
     getShield(): number {
         if (!this.isDefeated) {
             if (this.shield >= 0) {
-                console.log(`${this.name} has ${this.shield} shield left`)
+                console.log(`${this.type} has ${this.shield} shield left`)
                 return this.shield
             } else {
                 this.shield = 0;
-                console.log(`${this.name} has no shield left`)
+                console.log(`${this.type} has no shield left`)
                 return 0
             }
         } else {
-            console.log(`${this.name} has been defeated!!!`)
+            console.log(`${this.type} has been defeated!!!`)
             return 0;
         }
     }
 
     getHealth(): number {
         if (!this.isDefeated) {
-            console.log(`${this.name} has ${this.health} health left`)
+            console.log(`${this.type} has ${this.health} health left`)
             return this.health
         } else {
-            console.log(`${this.name} has been defeated!!!`)
+            console.log(`${this.type} has been defeated!!!`)
             return 0;
         }
     }

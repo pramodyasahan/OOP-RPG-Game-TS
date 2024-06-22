@@ -48,8 +48,9 @@ export class Cavalry extends Player {
             this.damageDeal += damageDone;
 
             if (this.damageDeal % 10 === 0) {
-                console.log(`${this.name} level up to: ${this.level} ⬆ `);
+                console.log(`${this.type} level up to: ${this.level} ⬆ `);
                 super.levelUp();
+                this.maxHealth += 10;
                 this.chargeAttackChance = Math.min(this.chargeAttackChance + 0.02, 0.5);
             }
 
@@ -66,30 +67,30 @@ export class Cavalry extends Player {
             if (this.health <= 0) {
                 this.health = 0;
                 this.isDefeated = true;
-                console.log(`${this.name} is defeated☠️`);
+                console.log(`${this.type} is defeated☠️`);
             }
         } else {
-            console.log(`${this.name} already has been defeated!!!`)
+            console.log(`${this.type} already has been defeated!!!`)
         }
 
     }
 
     getChargeAttackBonus(): number {
-        console.log(`${this.name} has ${this.chargeAttackBonus} charge attack bonus`)
+        console.log(`${this.type} has ${this.chargeAttackBonus} charge attack bonus`)
         return this.chargeAttackBonus;
     }
 
     getChargeAttackChance(): number {
-        console.log(`${this.name} has ${this.chargeAttackChance} charge attack chance`)
+        console.log(`${this.type} has ${this.chargeAttackChance} charge attack chance`)
         return this.chargeAttackChance;
     }
 
     getHealth(): number {
         if (!this.isDefeated) {
-            console.log(`${this.name} has ${this.health} health left`)
+            console.log(`${this.type} has ${this.health} health left`)
             return this.health
         } else {
-            console.log(`${this.name} has been defeated!!!`)
+            console.log(`${this.type} has been defeated!!!`)
             return 0;
         }
     }

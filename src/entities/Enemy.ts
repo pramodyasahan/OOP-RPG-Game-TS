@@ -1,4 +1,4 @@
-import {Entity} from "./Entity"
+import {Entity} from "../game/interfaces/Entity";
 
 export abstract class Enemy implements Entity {
     health: number;
@@ -8,7 +8,7 @@ export abstract class Enemy implements Entity {
 
     protected constructor(level: number, type: string) {
         this.isDefeated = false;
-        this.type = type
+        this.type = type;
         this.health = this.calculateHealth(level);
         this.level = level;
     }
@@ -22,7 +22,6 @@ export abstract class Enemy implements Entity {
     abstract getHealth(): number;
 
     public getRandomInt(min: number, max: number): number {
-        return (Math.floor(Math.random() * (max - min + 1)) + min)
+        return (Math.floor(Math.random() * (max - min + 1)) + min);
     }
-
 }

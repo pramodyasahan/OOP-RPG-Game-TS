@@ -1,0 +1,41 @@
+{
+  "players": [
+    {
+      "type": "Archer",
+      "health": 0,
+      "maxHealth": 80,
+      "level": 1,
+      "isDefeated": true,
+      "inventory": [
+        {
+          "name": "apple",
+          "healthGain": 10
+        },
+        {
+          "name": "health potion",
+          "healthGain": 50
+        },
+        {
+          "name": "meat",
+          "healthGain": 25
+        }
+      ],
+      "damageDeal": 295
+    }
+  ],
+  "currentLevelNumber": 3,
+  "enemies": [
+    {
+      "type": "Goblin",
+      "health": 2,
+      "level": 1,
+      "isDefeated": false
+    },
+    {
+      "type": "Skeleton",
+      "health": 18,
+      "level": 3,
+      "isDefeated": false
+    }
+  ]
+}
